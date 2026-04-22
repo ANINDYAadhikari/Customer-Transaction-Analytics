@@ -38,10 +38,8 @@ df.isnull().sum()
 '''
 
 # Convert to datetime first
-'''
 df['TransactionDate'] = pd.to_datetime(df['TransactionDate'], errors='coerce')
 df['PreviousTransactionDate'] = pd.to_datetime(df['PreviousTransactionDate'], errors='coerce')
-'''
 
 
 # Are TransactionDate and PreviousTransactionDate in proper datetime format?
@@ -72,3 +70,19 @@ print(high_tx[['TransactionID', 'TransactionAmount']])
 
 
 # Create a SpendingTier column using transaction amount ranges?
+'''
+df['SpendingTier'] = pd.cut(
+    df['TransactionAmount'],
+    bins=[0, 100, 500, 1000, float('inf')],
+    labels=['Low', 'Medium', 'High', 'Very High']
+)
+print(df[['TransactionAmount', 'SpendingTier']].head())
+'''
+
+
+# Create a LateNightTransaction flag using the transaction hour?
+df['LateNightTransaction'] = (
+    (df['TransactionDate'].dt.hour >= 22) | 
+    (df['TransactionDate'].dt.hour < 6)
+)
+print(df[['TransactionDate', 'LateNightTransaction']])
