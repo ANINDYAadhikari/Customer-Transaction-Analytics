@@ -37,6 +37,12 @@ print(df.shape)
 df.isnull().sum()
 '''
 
+# Convert to datetime first
+'''
+df['TransactionDate'] = pd.to_datetime(df['TransactionDate'], errors='coerce')
+df['PreviousTransactionDate'] = pd.to_datetime(df['PreviousTransactionDate'], errors='coerce')
+'''
+
 
 # Are TransactionDate and PreviousTransactionDate in proper datetime format?
 '''
@@ -45,3 +51,24 @@ print(df[['TransactionDate', 'PreviousTransactionDate']].dtypes)
 
 
 # What new time features can be extracted from TransactionDate such as month, day of week, and hour?
+'''
+df['year'] = df['TransactionDate'].dt.year
+df['month'] = df['TransactionDate'].dt.month
+df['day'] = df['TransactionDate'].dt.day
+df['day_of_week'] = df['TransactionDate'].dt.day_name()
+df['hour'] = df['TransactionDate'].dt.hour
+print(df.head(10))
+'''
+
+
+# Which transaction amounts are unusually high compared to the rest of the data?
+'''
+Q1 = df['TransactionAmount'].quantile(0.25)
+Q3 = df['TransactionAmount'].quantile(0.75)
+upper_bound = Q3 + 1.5 * (Q3 - Q1)
+high_tx = df[df['TransactionAmount'] > upper_bound]
+print(high_tx[['TransactionID', 'TransactionAmount']])
+'''
+
+
+# Create a SpendingTier column using transaction amount ranges?
