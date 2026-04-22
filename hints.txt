@@ -1,0 +1,200 @@
+Absolutely — here are **small hints only** for each one.
+
+## 1) Python: Data Cleaning & Feature Engineering
+
+**Q1: Rows, columns, data types**
+👉 Use `df.shape` and `df.dtypes`
+
+**Q2: Duplicate transactions**
+👉 Use `df.duplicated()` then `df.drop_duplicates()`
+
+**Q3: Missing values**
+👉 Use `df.isnull().sum()`
+
+**Q4: Datetime format**
+👉 Use `pd.to_datetime()`
+
+**Q5: Month, day, hour from TransactionDate**
+👉 Use `.dt.month`, `.dt.day_name()`, `.dt.hour`
+
+**Q6: Unusually high transaction amounts**
+👉 Use IQR or `quantile()` method
+
+**Q7: SpendingTier column**
+👉 Use `pd.cut()`
+
+**Q8: LateNightTransaction flag**
+👉 Check `hour < 6`
+
+**Q9: HighLoginAttempt flag**
+👉 Check `LoginAttempts >= 3`
+
+**Q10: LongDurationTransaction flag**
+👉 Use `TransactionDuration` with a threshold or `quantile()`
+
+**Q11: Suspicious when multiple risk signals happen together**
+👉 Add flag columns and check total score `>= 2`
+
+**Q12: Save cleaned dataset**
+👉 Use `df.to_csv()`
+
+---
+
+## 2) MySQL: Schema & Data Loading
+
+**Q13: Table structure**
+👉 Use `CREATE TABLE`
+
+**Q14: Primary key**
+👉 Use the unique ID column
+
+**Q15: MySQL data types**
+👉 Use `DECIMAL` for amount, `VARCHAR` for text, `INT` for counts
+
+**Q16: TransactionDate / PreviousTransactionDate type**
+👉 Use `DATETIME`
+
+**Q17: Load cleaned CSV into MySQL**
+👉 Use `LOAD DATA INFILE`
+
+**Q18: Verify all rows loaded**
+👉 Use `SELECT COUNT(*)`
+
+**Q19: Check numeric columns imported correctly**
+👉 Use `MIN()`, `MAX()`, `AVG()`
+
+**Q20: Check truncation/import errors**
+👉 Use `SHOW WARNINGS`
+
+---
+
+## 3) SQL Analytics
+
+### Customer Behavior
+
+**Q21: Highest total spend**
+👉 Use `SUM()` + `GROUP BY AccountID`
+
+**Q22: Most transactions**
+👉 Use `COUNT(*)` + `GROUP BY AccountID`
+
+**Q23: Average transaction per customer**
+👉 Use `AVG(TransactionAmount)`
+
+**Q24: Highest single transaction**
+👉 Use `MAX(TransactionAmount)`
+
+### Spending Trends
+
+**Q25: Most frequent transaction type**
+👉 Use `COUNT(*)` + `GROUP BY TransactionType`
+
+**Q26: Transaction type with highest total value**
+👉 Use `SUM(TransactionAmount)` + `GROUP BY TransactionType`
+
+**Q27: Highest spending merchant categories or locations**
+👉 Use `SUM(TransactionAmount)` + `GROUP BY Location`
+
+**Q28: Spending by month**
+👉 Use `DATE_FORMAT(TransactionDate, '%Y-%m')`
+
+**Q29: Spending by day of week**
+👉 Use `DAYNAME(TransactionDate)`
+
+**Q30: Hour with most transactions**
+👉 Use `HOUR(TransactionDate)`
+
+### Risk / Suspicious Activity
+
+**Q31: High value, late night, or high login attempts**
+👉 Use `WHERE` with flag columns
+
+**Q32: Locations with most suspicious transactions**
+👉 Use `WHERE SuspiciousTransaction = 1`
+
+**Q33: Customers most frequent in flagged transactions**
+👉 Use `GROUP BY AccountID` with suspicious filter
+
+**Q34: Channels with highest risk**
+👉 Use `GROUP BY Channel` and count suspicious rows
+
+**Q35: Suspicious volume vs total volume**
+👉 Use `COUNT(CASE WHEN ...)`
+
+### Customer Profile Insights
+
+**Q36: Amount by age group**
+👉 Use `CASE WHEN` for age bands
+
+**Q37: Occupations that spend the most**
+👉 Use `SUM(TransactionAmount)` + `GROUP BY CustomerOccupation`
+
+**Q38: Age group with highest average transaction**
+👉 Use `CASE WHEN` + `AVG()`
+
+**Q39: Occupation with highest number of transactions**
+👉 Use `COUNT(*)` + `GROUP BY CustomerOccupation`
+
+**Q40: Account balance vs transaction amount**
+👉 Use scatter chart or compare averages by balance bands
+
+---
+
+## 4) Power BI Dashboard
+
+### Page 1 — Executive Overview
+
+**Q41: Total transactions, volume, average value, suspicious rate**
+👉 Use card visuals + measures
+
+**Q42: Transaction types and locations that contribute most to spend**
+👉 Use bar charts sorted descending
+
+**Q43: Monthly trend over time**
+👉 Use a line chart by month
+
+### Page 2 — Customer Behavior
+
+**Q44: Top spenders**
+👉 Sort customers by total spend
+
+**Q45: Average spend by age**
+👉 Use age groups
+
+**Q46: Spending by tiers**
+👉 Use a column or pie chart
+
+**Q47: Occupations with highest activity**
+👉 Use count by occupation
+
+### Page 3 — Anomaly & Risk View
+
+**Q48: Locations with most flagged transactions**
+👉 Filter suspicious rows first
+
+**Q49: Volume of suspicious transactions**
+👉 Count flagged rows
+
+**Q50: Late night versus normal hours**
+👉 Use a flag comparison
+
+**Q51: Customers linked to risky patterns**
+👉 Group by customer and count flags
+
+**Q52: Channels with more suspicious activity**
+👉 Group by channel
+
+### Page 4 — Transaction Patterns
+
+**Q53: Day of week with highest count**
+👉 Use `DAYNAME()` or day field
+
+**Q54: Busiest hour of day**
+👉 Use hour extracted from date
+
+**Q55: Split between transaction types**
+👉 Use pie or bar chart
+
+**Q56: Day and hour together**
+👉 Use a matrix or heatmap
+
