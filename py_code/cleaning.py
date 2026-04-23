@@ -81,8 +81,10 @@ print(df[['TransactionAmount', 'SpendingTier']].head())
 
 
 # Create a LateNightTransaction flag using the transaction hour?
+'''
 df['LateNightTransaction'] = (
     (df['TransactionDate'].dt.hour >= 22) | 
     (df['TransactionDate'].dt.hour < 6)
 )
 print(df[['TransactionDate', 'LateNightTransaction']])
+'''
