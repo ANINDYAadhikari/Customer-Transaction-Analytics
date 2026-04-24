@@ -69,7 +69,7 @@ print(high_tx[['TransactionID', 'TransactionAmount']])
 '''
 
 
-# Create a SpendingTier column using transaction amount ranges?
+# Create a SpendingTier column using transaction amount ranges
 '''
 df['SpendingTier'] = pd.cut(
     df['TransactionAmount'],
@@ -80,7 +80,7 @@ print(df[['TransactionAmount', 'SpendingTier']].head())
 '''
 
 
-# Create a LateNightTransaction flag using the transaction hour?
+# Create a LateNightTransaction flag using the transaction hour
 '''
 df['LateNightTransaction'] = (
     (df['TransactionDate'].dt.hour >= 22) | 
@@ -88,3 +88,6 @@ df['LateNightTransaction'] = (
 )
 print(df[['TransactionDate', 'LateNightTransaction']])
 '''
+
+
+# create a HighLoginAttempt flag based on the number of login attempts
