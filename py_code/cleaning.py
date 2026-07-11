@@ -8,7 +8,6 @@
 import pandas as pd 
 import numpy as np 
 
-
 # --- Load DataSet ---
 df = pd.read_csv(r"C:\Project\Customer-Transaction-Analytics\data\bank_transactions_data.csv")
 print("DataSet Loaded Successfully \n")
